@@ -1,0 +1,389 @@
+
+
+@font-face {
+    font-family: Averta;
+    src: url(./AvertaDemoPECuttedDemo-Regular.otf);
+}
+
+:root {
+    
+    --primary:#00afef;
+    --danger:#ff7782;
+    --success:#41f1b6;
+    --warning:#ffbb55;
+    --white:#fefefe;
+    --info-dark:#7d8da1;
+    --info-light:#dce1eb;
+    --dark:#363949;
+    --light:rgba(132, 139, 200, 0.4);
+    --primary-variant:#111e88;
+    --dark-variant:#677483;
+    --background:#f0f5f7;
+
+    --modal-background:#00000066;
+    --modal-dark:#5c6979;
+
+    --card-border-radius:1.6rem;
+    --border-radius-1:0.4rem;
+    --border-radius-2:0.8rem;
+    --border-radius-3:1.2rem;
+
+    --card-padding:1.8rem;
+    --padding-1:1.2rem;
+
+
+
+    --box-shadow:0 2rem 3rem var(--light);
+}
+
+
+.dark-theme-variables {
+    --primary: #0377a1;
+    --background:#161b1d;
+    --white:#202528;
+    --dark:#edeffd;
+    --dark-variant:#a3bdcc;
+    --light:rgba(0, 0, 0, 0.4);
+    --modal-background:hsla(0, 0%, 0%, 0.4);
+    --box-shadow:0 2rem 3rem var(--light);
+}
+
+
+
+*{
+    margin:0;
+    padding:0;
+    outline: 0;
+    border:0;
+    appearance: none;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Averta", Arial, Helvetica, sans-serif;
+    transition:all 0.1s ease;
+}
+
+html, body{
+    overflow-x:hidden;
+}
+
+.wrapper{
+    width:100vw;
+    height:100vh;
+    background: var(--background);
+}
+
+h3,p,h1,a{
+    color:var(--dark);
+}
+
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:1rem 2rem;
+    border-bottom:1px solid var(--info-dark);
+    align-items: center;
+}
+
+
+header .left-part .image img,
+header .right-part .image img{
+    width:5rem;
+}
+
+
+header .right-part,
+header .right-part .top{
+    display:flex;
+    justify-content: space-between;
+}
+
+header .right-part .progress-box{
+    padding:1rem;
+
+}
+
+header .right-part .image img{
+    border-radius: 50%;
+    width:4rem;
+}
+
+
+.main{
+    display: flex;
+}
+
+aside{
+    padding:1rem;
+    border-right:1px solid var(--info-dark);
+    width:20rem;
+    height:100vh;
+    box-shadow: var(--box-shadow);
+}
+
+aside h3 {
+    padding: 1rem 0;
+}
+
+aside p {
+    padding:.8rem .5rem;
+
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+aside p:hover{
+    background-color: #00000066;
+    color:var(--white);
+}
+aside p.active{
+    background-color: #00000066;
+    color:var(--white);
+}
+
+
+aside p img{
+    margin-right:1rem;
+}
+
+aside .other {
+    margin-top:5rem;
+    font-weight: bold;
+}
+
+
+aside .other img {
+    width:1.2rem;
+}
+main {
+    padding:1rem;
+    width:100%;
+}
+
+main .topbar {
+    display: flex;
+    justify-content: space-between;
+    padding:0 1.5rem 1rem 0;
+    border-bottom:1px solid var(--info-dark);
+}
+
+.topbar .search-box{
+    position: relative;
+}
+main .topbar input{
+    padding:.5rem;
+    border:1px solid var(--info-dark);
+    background-color: var(--info-light);
+    border-radius: 1rem;
+    width:20rem;
+}
+
+main .topbar .create-btns button{
+    padding:.5rem 1rem;
+    background-color: var(--info-light);
+    color:var(--dark);
+    border-radius:1rem;
+    border:1px solid transparent;
+}
+main .topbar .create-btns button img{
+    margin:0 .5rem;
+}
+
+main .topbar .create-btns button:hover{
+    border:1px solid var(--info-dark);
+}
+
+main .recent-files{
+    padding:1rem;
+}
+
+main .recent-files .files-row{
+    overflow-x: scroll;
+    padding:1rem;
+    display:flex;
+}
+
+main .files-row .file {
+    margin:1rem;
+    padding:2rem;
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    
+}
+main .files-row .file:hover {
+    background-color: var(--info-dark);
+    
+}
+
+.recent-files .files-row img {
+    width:5rem;
+}
+
+
+main .tablebox{
+    width:100%;
+    box-shadow: var(--box-shadow);
+    overflow:scroll;
+
+} 
+
+
+main .tablebox table thead tr th{
+    border-bottom: 1px solid var(--info-light);
+}
+
+main .tablebox table thead tr th:first-child{
+    width:70rem;
+   text-align: left;
+   padding: 1rem;
+
+}
+
+main .tablebox table thead tr th:nth-child(2),
+main .tablebox table thead tr th:nth-child(3){
+    width:10rem;
+   text-align: left;
+   padding:0 1rem;
+
+}
+
+
+
+main .tablebox table tbody tr td{
+    padding:1rem;
+    border-bottom: 1px solid var(--info-light);
+}
+
+main .tablebox table tbody tr td span{
+    margin-right:1rem;
+}
+
+main .tablebox table tbody tr:hover{
+    background-color: var(--info-light);
+}
+
+.modal{
+    width:100vw;
+    height:100vh;
+    background-color:var(--modal-background);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:999;
+    display:none;
+    place-items: center;
+}
+
+
+.modal-content{
+    background: var(--white);
+    padding:1rem;
+    border-radius: 1rem;
+    width:100%;
+    max-width:30rem;
+}
+
+
+.modal-content .close {
+    width:100%;
+    text-align:right;
+    font-size:2rem;
+    color:#e32;
+}
+
+.modal-content .close span {
+    cursor: pointer;
+}
+
+.modal-content .field{
+    width:100%;
+    margin:1rem 0;
+}
+
+.modal-content .field input, .modal-content .field select{
+    border: 1px solid var(--info-dark);
+    width:100%;
+    padding:.5rem;
+    border-radius: 1rem;
+}
+
+input[type=file]{
+    border:none !important;
+}
+
+.modal-content button {
+    width:100%;
+    padding:.5rem;
+    border-radius: 1rem;
+    background-color: var(--info-light);
+    border:1px solid var(--info-dark);
+}
+
+.modal-content button:hover{
+    background-color: var(--info-dark);
+    color:var(--white);
+}
+
+
+.danger{
+    color:#e32;
+}
+
+.success{
+    color:green;
+}
+
+.warning{
+    color:orange;
+}
+
+
+.notifications{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.notifications .box {
+    display: flex;
+    border-radius: 1rem;
+    margin:.5rem;
+    border:1px solid var(--info-dark);
+}
+
+.notifications .box img{
+    padding:1rem;
+}
+.notifications .box .text-box{
+    padding: 1rem;
+}
+
+.notifications .box .text-box .split{
+    margin-top:.5rem;
+    display: flex;
+    width:20rem;
+    justify-content: space-between;
+}
+
+.notifications .box .text-box .split p:first-child{
+    background-color: var(--info-light);
+    padding:.5rem;
+    border-radius: .5rem;
+    
+}
+
+.notifications .box .text-box .split p img{
+    padding:0;
+    padding-right:1rem;
+
+}
+.notifications small{
+    color:var(--info-dark);
+}
+
+td a{
+    text-decoration: underline;
+}

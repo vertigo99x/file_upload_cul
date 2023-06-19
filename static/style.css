@@ -1,0 +1,551 @@
+
+
+@font-face {
+    font-family: Averta;
+    src: url(./AvertaDemoPECuttedDemo-Regular.otf);
+}
+
+:root {
+    
+    --primary:#00afef;
+    --danger:#ff7782;
+    --success:#41f1b6;
+    --warning:#ffbb55;
+    --white:#fefefe;
+    --info-dark:#7d8da1;
+    --info-light:#dce1eb;
+    --dark:#363949;
+    --light:rgba(132, 139, 200, 0.4);
+    --primary-variant:#111e88;
+    --dark-variant:#677483;
+    --background:rgb(250, 250, 250);
+
+    --modal-background:#00000066;
+    --modal-dark:#5c6979;
+
+    --card-border-radius:1.6rem;
+    --border-radius-1:0.4rem;
+    --border-radius-2:0.8rem;
+    --border-radius-3:1.2rem;
+
+    --card-padding:1.8rem;
+    --padding-1:1.2rem;
+
+
+
+    --box-shadow:0 1rem 1.5rem var(--info-light);
+}
+
+
+.dark-theme-variables {
+    --primary: #0377a1;
+    --background:#161b1d;
+    --white:#202528;
+    --dark:#edeffd;
+    --dark-variant:#a3bdcc;
+    --light:rgba(0, 0, 0, 0.4);
+    --modal-background:hsla(0, 0%, 0%, 0.4);
+    --box-shadow:0 2rem 3rem var(--light);
+}
+
+
+
+*{
+    margin:0;
+    padding:0;
+    outline: 0;
+    border:0;
+    appearance: none;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Averta", Arial, Helvetica, sans-serif;
+    transition:all 0.1s ease;
+}
+
+html, body{
+    overflow-x:hidden;
+}
+
+.wrapper{
+    width:100vw;
+    height:100vh;
+    background: var(--background);
+}
+
+h3,p,h1,a{
+    color:var(--dark);
+}
+
+
+
+
+input, select,textarea {
+    font-size: 1rem;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:.2rem 2rem;
+    border-bottom:1px solid var(--info-dark);
+    align-items: center;
+}
+
+
+header .left-part .image img,
+header .right-part .image img{
+    width:5rem;
+}
+
+
+header .right-part,
+header .right-part .top{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .right-part .progress-box{
+    padding:1rem;
+
+}
+
+header .right-part .image img{
+    border-radius: 50%;
+    width:3.5rem;
+}
+
+
+.loading-bar{
+    display: none;
+    place-items:center;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.4);
+    position:fixed;
+    z-index:9999;
+}
+
+.loading-bar .loading{
+    width:5rem;
+    height:5rem;
+    margin: auto;
+    
+    border:5px solid var(--darkblue);
+    border-left:5px solid transparent;
+    border-radius:50%;
+    
+    animation: load 1.5s infinite linear;
+}
+
+
+@keyframes load {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.main{
+    display: flex;
+}
+
+aside{
+    padding:1rem;
+    border-right:1px solid var(--info-dark);
+    width:20rem;
+    
+    height:100vh;
+    background: #F6F5F5 !important;
+    box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.1);
+    display:flex;
+    flex-direction: column;
+}
+
+aside h3 {
+    padding: 1rem 0;
+    text-transform: capitalize;
+}
+
+aside p, aside a {
+    padding:.8rem .5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+aside p:hover, aside a:hover{
+    box-shadow: var(--box-shadow);
+    background-color: #cecece;
+}
+aside p.active, aside a.active{
+    box-shadow: var(--box-shadow);
+    background-color: #cecece;
+    color:var(--info-dark);
+    
+}
+
+h3 b{
+    color:var(--info-dark);
+}
+
+
+aside p img,aside a img{
+    margin-right:1rem;
+}
+
+aside .other {
+    margin-top:5rem;
+    font-weight: bold;
+}
+aside .other {
+    margin-top:5rem;
+    font-weight: bold;
+    display:flex;
+    flex-direction: column;
+}
+aside .other a{
+    margin:.5rem;
+}
+aside .other a img{
+    margin-right:.5rem;
+}
+
+
+aside .other img {
+    width:1.2rem;
+}
+main {
+    padding:1rem;
+    width:100%;
+    background: rgb(250, 250, 250);
+}
+
+main .topbar {
+    display: flex;
+    justify-content: space-between;
+    padding:0 1.5rem 1rem 0;
+    border-bottom:1px solid var(--info-dark);
+}
+
+.topbar .search-box{
+    position: relative;
+}
+
+main .topbar input{
+    padding:.5rem;
+    border:1px solid var(--info-dark);
+    background: #F1F1F1;
+  
+    border-radius: 1rem;
+    width:20rem;
+}
+
+.topbar::placeholder{
+    color:var(--dark)
+}
+
+
+main .topbar .create-btns button{
+    padding:.5rem 1rem;
+    background-color: var(--info-light);
+    color:var(--dark);
+    border-radius:1rem;
+    border:1px solid transparent;
+}
+main .topbar .create-btns button img{
+    margin:0 .5rem;
+    
+}
+
+main .topbar .create-btns button:hover{
+    border:1px solid var(--info-dark);
+}
+
+main .recent-files{
+    padding:1rem;
+}
+
+main .recent-files .files-row{
+    overflow-x: scroll;
+    padding:1rem;
+    display:flex;
+    max-width:80vw;
+}
+
+
+
+main .files-row .file {
+    margin:1rem;
+    padding:2rem;
+    min-width:20rem;
+    max-width:30rem;
+    border-radius: 1rem; 
+    background: #F6F6F6;
+    box-shadow: 0px 2px 15px rgba(22, 22, 22, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    transition: all .3s ease;
+
+}
+
+.files-row .file .overlay{
+    background-color: rgba(0, 0, 0, 0.4);
+    display: grid;
+    place-items: center;
+    position: absolute;
+    border-radius: 1rem; 
+    top:0;
+    left:0;
+    width:20rem;
+    height:100%;
+    z-index:99;
+  
+}
+.files-row .file h3{
+    z-index: 999 !important;
+   
+
+}
+
+
+main .box-img{
+    width:100% !important;
+    height:100% !important;
+    padding:.2rem .2rem 1rem .2rem;
+    aspect-ratio: 1.7;
+    background-size: cover;
+}
+
+
+
+main .files-row .file:hover {
+    box-shadow: none;
+    border:1px solid var(--info-light);
+    
+}
+
+.recent-files .files-row img {
+    width:5rem;
+}
+
+
+main .tablebox{
+    width:100%;
+    border:1px solid var(--info-light);
+    overflow-y:scroll;
+    max-height:30vh;
+
+} 
+
+
+main .tablebox table thead tr th{
+    border-bottom: 1px solid var(--info-light);
+}
+
+main .tablebox table thead tr th:first-child{
+    width:60rem;
+   text-align: left;
+   padding: 1rem;
+
+}
+
+main .tablebox table thead tr th:nth-child(2),
+main .tablebox table thead tr th:nth-child(3),
+main .tablebox table thead tr th:nth-child(4){
+    width:10rem;
+   text-align: left;
+   padding:0 1rem;
+
+}
+
+
+
+main .tablebox table tbody tr td{
+    padding:1rem;
+    border-bottom: 1px solid var(--info-light);
+}
+
+main .tablebox table tbody tr td span{
+    margin-right:1rem;
+}
+
+main .tablebox img{
+    width:2rem;
+}
+
+main .tablebox table tbody tr:hover{
+    background-color: var(--info-light);
+}
+
+.modal{
+    width:100vw;
+    height:100vh;
+    background-color:var(--modal-background);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:999;
+    display:none;
+    place-items: center;
+}
+
+
+.modal-content{
+    background: var(--white);
+    padding:1rem;
+    border-radius: 1rem;
+    width:100%;
+    max-width:30rem;
+}
+
+
+.modal-content .close {
+    width:100%;
+    text-align:right;
+    font-size:2rem;
+    color:#e32;
+}
+
+.modal-content .close span {
+    cursor: pointer;
+}
+
+.modal-content .field{
+    width:100%;
+    margin:1rem 0;
+}
+
+.modal-content .field input, .modal-content .field select{
+    border: 1px solid var(--info-dark);
+    width:100%;
+    padding:.5rem;
+    border-radius: 1rem;
+}
+
+input[type=file]{
+    border:none !important;
+}
+
+.modal-content button {
+    width:100%;
+    padding:.5rem;
+    border-radius: 1rem;
+    background-color: var(--info-light);
+    border:1px solid var(--info-dark);
+}
+
+.modal-content button:hover{
+    background-color: var(--info-dark);
+    color:var(--white);
+}
+
+
+.danger{
+    color:#e32;
+}
+
+.success{
+    color:green;
+}
+
+.warning{
+    color:orange;
+}
+
+
+.notifications{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: 75vh;
+}
+
+.notifications .box {
+    display: flex;
+    border-radius: 1rem;
+    margin:.5rem;
+    border:1px solid var(--info-dark);
+    
+}
+
+.notifications .box:hover{
+    box-shadow: 0px 2px 15px rgba(22, 22, 22, 0.1);
+}
+
+.notifications .box img{
+    padding:1rem;
+}
+.notifications .box .text-box{
+    padding: 1rem;
+}
+
+.notifications .box .text-box .split{
+    margin-top:.5rem;
+    display: flex;
+    width:40rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notifications .box .text-box .split p:first-child{
+    background-color: var(--info-light);
+    padding:.5rem;
+    border-radius: .5rem;
+    
+}
+
+.notifications .box .text-box .split p img{
+    padding:0;
+    padding-right:1rem;
+
+}
+.notifications small{
+    color:var(--info-dark);
+}
+
+td a{
+    color:rgb(239,90,60)
+}
+td a:hover, h1 a:hover{
+    
+    color:rgb(239,90,60)
+}
+
+h1 a{
+    color:var(--dark);
+}
+
+
+main h1{
+    font-size:1.5rem;
+    padding:1rem;
+    text-transform: capitalize;
+}
+header h3{
+    text-transform: capitalize;
+}
+header h3 .discolor{
+    color:rgb(239,90,60);
+}
+
+
+.other-split a{
+    margin: 0 .5rem;padding:.5rem 1rem;
+    border-radius: 1rem;
+}
+.other-split a:first-child{
+    background-color:var(--success);
+    color:var(--dark);
+}
+.other-split a:nth-child(2){
+    background-color:var(--danger);
+    color:var(--dark);
+}
+.other-split a:hover{
+    opacity: .5;
+}

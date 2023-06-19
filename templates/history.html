@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="">
+    
+   <div class="wrapper">
+
+        <div class="modal" id="upload-file">
+            <div class="modal-content">
+                <div class="close">
+                    <span onclick="document.querySelector('#upload-file').style.display='none'">X</span>
+                </div>
+
+                <form action="{% url 'upload_file' %}"  enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <div class="field">
+                        <input type="text" name="file_name" placeholder="Select Filename" required>
+                    </div>
+                    <div class="field">
+                        <select name="folder_name" id="" required>
+                            <option value="" selected disabled>Select Folder</option>
+                            {% for folder in folders %}
+                                <option value="{{ folder.folder_name }}">{{ folder.folder_name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    
+                    <div class="field">
+                        <p>Select File</p>
+                        <input type="file" name="file" id="file" required>
+                    </div>
+    
+                    <input type="hidden" name="file_size" id="file_size">
+                    <div class="field">
+                        <button>Upload File</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="create-folder">
+            <div class="modal-content">
+                <div class="close">
+                    <span onclick="document.querySelector('#create-folder').style.display='none'">X</span>
+                </div>
+
+               <form action="{% url 'create_folder' %}" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                    <div class="field">
+                        <input type="text" name="folder_name" placeholder="Type a Foldername">
+                    </div>
+                    
+
+                    <div class="field">
+                        <button>Create Folder</button>
+                    </div>
+               </form>
+            </div>
+        </div>
+
+
+
+        <header>
+            <div class="left-part" style="display:flex;align-items:center">
+                <div class="image"><img src="{% static './mask.png' %}" alt=""></div>
+                <h3 style="margin-left:2rem;"><span class="discolor">Welcome,</span> {{ user }}</h3>
+            </div>
+
+            
+            
+                
+            <div class="right-part">
+                {% if userData.usercat == 'student' %}
+                    <div class="progress-box">
+                        <div class="top">
+                            <p>Approved</p>
+                            <p>{{ approved_percentage }}%</p>
+                        </div>
+                        <div class="bottom">
+                            <progress max="100" value="{{ approved_percentage }}"></progress>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div class="profile-image">
+                    <div class="image">
+                        <img src="{% static './avatar-95fb4ee46aae3dcff7a9f901dc0dd0f6.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+
+
+        </header>
+
+       <div class="main">
+        <aside>
+            
+            {% if userData.usercat == 'student' %}
+
+            <h3>Files</h3>
+            <a href="{% url 'dashboard' %}"><img src="{% static 'folder.svg' %}" alt="" class="active"><span>All Files</span></a>
+           
+            <h3>Created Folders</h3>
+            {% for folder in folders %}
+            
+            {% if folder.folder_name == folda_sort %}
+                
+                <a href="{% url 'folder_sort' folder.id %}"><img src="{% static 'folder.svg' %}" alt="" class="active"><span>{{ folder.folder_name }}</span></a>
+           
+            {% else %}
+                <a href="{% url 'folder_sort' folder.id %}"><img src="{% static 'folder.svg' %}" alt="" class="active"><span>{{ folder.folder_name }}</span></a>
+            
+             {% endif %}
+          
+            {% endfor %}
+
+            
+
+            <div class="other">
+                <a href="{% url 'notifications' %}"><img src="{% static './notify.svg' %}" alt=""><span>Notifications</span></a>
+
+                <a href="{% url 'logout' %}"><img src="{% static './logout.svg' %}" alt=""><span>Logout</span></a>
+            </div>
+
+            {% else %}
+            <div class="other">
+                <a href="{% url 'dashboard' %}" ><img src="{% static './notify.svg' %}" alt=""><span>Requests</span></a>
+                <a href="{% url 'history' %}" class="active"><img src="{% static './notify.svg' %}" alt=""><span>History</span></a>
+                <a href="{% url 'students' %}"><img src="{% static './profile.svg' %}" alt=""><span>Students</span></a>
+                <a href="{% url 'logout' %}"><img src="{% static './logout.svg' %}" alt=""><span>Logout</span></a>
+            </div>
+                
+            {% endif %}
+                
+
+
+            
+        </aside>
+
+        
+        {% if userData.usercat == 'student' %}
+        <main>
+            <div class="loading-bar">
+                <div class="loading"></div>
+            </div>
+            <div class="topbar">
+                <div class="search-box">
+                    <input type="text" class="search" placeholder="Search Files" id='search'>
+                   
+                </div>
+                <div class="create-btns">
+                    <button onclick="document.querySelector('#upload-file').style.display='grid'"><span><img src="{% static './upload.svg' %}" alt=""></span>Upload File</button>
+                    <button onclick="document.querySelector('#create-folder').style.display='grid'"><span><img src="{% static './folder-icon.svg' %}" alt=""></span>Create Folder</button>
+                </div>
+            </div>
+
+            <div class="recent-files">
+                <h1>Recent Uploads</h1>
+                <div class="files-row">
+                    {% for file in recent_files %}
+                    
+                    
+                    {% if file.file_type == 'image' %}
+                    <a class="file" href="http://127.0.0.1:8000/media/{{file.file}}" style="background-image:url('http://127.0.0.1:8000/media/{{file.file}}');background-size:100%;">
+                        <div class="overlay"><h3 style="color:var(--white);">{{ file.file_name|strip }}</h3></div>
+                        <img src="" alt="" style="padding-top:1.8rem;" >
+                        
+                        
+                    </a>
+                    {% else %}
+                        
+                    <a class="file" href="#">
+                        <img src="{% static './file.svg' %}" alt="">
+                        <h3>{{ file.file_name|strip }}</h3>
+                        
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    
+                </div>
+            </div>
+
+            {% if folda_sort %}
+            <h1><a href="{% url 'dashboard' %}">All Files</a> &gt; {{ folda_sort }}</h1>
+            {% else %}
+            <h1><a href="{% url 'dashboard' %}">All Files</a></h1>
+            {% endif %}
+            <div class="tablebox">
+               
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th>Type</th>
+                            <th>Size</th>
+                            <th>Date Created</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablesearch">
+                        {% for file in files %}
+                        <tr>
+                            <td><span>
+                                
+                                {% if file.file_type == 'image' %}
+                                    <img src="{% static './image.svg' %}" alt="">
+                                {% elif file.file_type == 'audio' %}
+                                    <img src="{% static './audio.svg' %}" alt="">
+                                {% elif file.file_type == 'video' %}
+                                    <img src="{% static './video.svg' %}" alt="">
+                                {% else %}
+                                    <img src="{% static './document.svg' %}" alt="">
+
+                                {% endif %}
+                                    
+                            </span><a href="http://127.0.0.1:8000/media/{{file.file}}">{{ file.file_name|strip_longer }}</a></td>
+                            <td>{{ file.file_type }}</td>
+                            <td>{{ file.file_size }}</td>
+                            <td>{{ file.created|date }}, {{ file.created|time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </main>
+
+        {% elif userData.usercat == 'admin' %}
+        <main>
+            <h1>File Approval Requests History</h1>
+            <div class="notifications">
+                
+                
+                {% for file in files %}
+
+                    
+                    {% if file.status == 1 %}
+                        <div class="box">
+                            <img src="{% static './bell.svg' %}" alt="">
+                            <div class="text-box">
+                                <h3>{{ file.user }} added a file</h3>
+                                <small>{{ file.created|timesince }}</small>
+                                <div class="split">
+                                    <p><img src="{% static './folder-icon.svg' %}" alt=""><span>{{ file.file_name|strip_longer }}</span></p>
+                                    <p class="success"> Approved</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% elif file.status == 2 %}
+                        <div class="box">
+                            <img src="{% static './bell.svg' %}" alt="">
+                            <div class="text-box">
+                                <h3>{{ file.user }} added a file</h3>
+                                <small>{{ file.created|timesince }}</small>
+                                <div class="split">
+                                    <p><img src="{% static './folder-icon.svg' %}" alt=""><span>{{ file.file_name|strip_longer }}</span></p>
+                                    <p class="danger"> Declined </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <div class="box">
+                            <img src="{% static './bell.svg' %}" alt="">
+                            <div class="text-box">
+                                <h3>{{ file.user }} added a file</h3>
+                                <small>{{ file.created|timesince }}</small>
+                                <div class="split">
+                                    <p><a href="http://127.0.0.1:8000/media/{{ file.file}}"><img src="{% static './folder-icon.svg' %}" alt=""><span>{{ file.file_name|strip_longer }}</span></a></p>
+                                    <div class="other-split"> 
+                                        <a href="{% url 'approve' file.id %}">Approve</a>
+                                        <a href="{% url 'reject' file.id %}">Decline</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {% endif %}
+                        
+                    
+                {% endfor %}
+                    
+               
+            </div>
+            
+        </main>
+        {% endif %}
+            
+        
+
+        
+       </div>
+
+    
+   </div>
+   <script src="{% static './jquery.js' %}"></script>
+   <script src="{% static './jquery-3.3.1.min.js' %}"></script>
+   <script>
+       $(document).ready(function() {
+           $("#search").on("keyup", function() {
+               var value = $(this).val().toLowerCase();
+               $("#tablesearch tr").filter(function() {
+                   $(this).toggle($(this).text()
+                   .toLowerCase().indexOf(value) > -1)
+               });
+           });
+       });
+   </script>
+
+
+   <script>
+
+    var upload_modal = document.querySelector('#upload-file')
+
+    var uploadField = document.getElementById("file");
+    var file_size = document.getElementById("file_size");
+
+        uploadField.onchange = function(e) {
+            if(this.files[0].size > 20971520){
+                alert("File is too big!");
+                this.value = "";
+                } else {
+                    file_size.value = `${this.files[0].size}`
+                    
+                }
+    
+    
+        };
+
+
+   </script>
+    
+</body>
+</html>
